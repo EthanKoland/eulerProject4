@@ -5,7 +5,7 @@
 #------------------------------------------------------------------------#
 
 def main(max=9999, min=1000):
-    print("the largest Palendrome is ", attempt3(max, min))
+    print("the largest Palendrome is ", attempt2(max, min))
 
 #------------------------------------------------------------------------#
 # Function: attempt1
@@ -95,7 +95,41 @@ def attempt2(max=1, min=10):
 def attempt3(max=999, min=100):
     #np.max is used to find the largest palindrome, max is used as a variable so complier was getting confused
     return np.max([i*j for i in range(min, max + 1) for j in range(min, max + 1) if is_palindrome(i*j)])
+
+#attmpet 4
+def attempt4(maxNumber = 999, minNumber = 100):
+    largestPalindrome = -1
+    count = 0
+    difference = maxNumber-minNumber
+    
+    #Check the diagonals of the matrix, if a palindrome is found then check the remaining diagonal
+    while(largestPalindrome == -1):
+        if(count >= difference):
+            print("No palindrome found")
+            return None
         
+        #Init the staring position
+        curentPostion = [maxNumber, maxNumber - count]
+        print(f"the current starting position is {curentPostion}")
+        
+        #Boundry conditions for moving in a diagonal
+        while(curentPostion[0] >= 0 and curentPostion[1] <= maxNumber):
+            
+            #print(curentPostion, productTable[curentPostion[0], curentPostion[1]])
+            product = (curentPostion[0]) * (curentPostion[1])
+            
+            if(is_palindrome(product) 
+               and product > largestPalindrome):
+                largestPalindrome = product
+                print("Current largest Palindrome is ", largestPalindrome)
+                
+            #Move in a diagonal
+            curentPostion[0] -= 1
+            curentPostion[1] += 1
+        
+        count += 1
+        
+    return largestPalindrome
     
 #Simple function to check if a number is a palindrome              
 def is_palindrome(num):
@@ -103,4 +137,5 @@ def is_palindrome(num):
 
 
 if(__name__ == '__main__'):
-    main(10000, 1000)
+    #print(attempt3(999, 100))
+    print(attempt4(10**14-1, 10**13))
